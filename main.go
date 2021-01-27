@@ -24,6 +24,7 @@ func (z zeroReader) Read(p []byte) (n int, err error) {
 
 func main() {
 	flag.StringVar(&optAddr, "addr", ":80", "listen address")
+	flag.Parse()
 
 	e := echo.New()
 	e.Use(middleware.Recover())
