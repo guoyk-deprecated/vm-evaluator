@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"log"
 	"net/http"
 )
 
@@ -26,8 +27,13 @@ func main() {
 	flag.StringVar(&optAddr, "addr", ":80", "listen address")
 	flag.Parse()
 
+	log.Println("listening at", optAddr)
+
 	e := echo.New()
+	e.HidePort = true
+	e.HideBanner = true
 	e.Use(middleware.Recover())
+	e.Use(middleware.Logger())
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
